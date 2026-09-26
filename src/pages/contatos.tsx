@@ -6,6 +6,7 @@ import axios from "axios";
 type Pokemon = {
   name: string;
   url: string;
+  types: { type: { name: string } }[];
 }
 
 export default function Contatos() {
@@ -20,7 +21,7 @@ export default function Contatos() {
         const response = await axios.get<Pokemon>("https://pokeapi.co/api/v2/pokemon/charmeleon");
         setDados(response.data);
       } catch (error) {
-        setErro(error.message);
+        setErro(error instanceof Error ? error.message : String(error));
       } finally {
         setCarregando(false);
       }
